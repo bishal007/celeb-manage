@@ -1,0 +1,20 @@
+.user-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .details {
+    margin-top: 1rem;
+  }
+  
+  .delete-button, .edit-button {
+    margin-right: 10px;
+  }
+  
+  .edit-form input {
+    margin: 0.5rem 0;
+  }
+  
