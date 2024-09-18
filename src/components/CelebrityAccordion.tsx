@@ -22,15 +22,15 @@ interface CelebrityAccordionProps {
 
 const CelebrityAccordion: React.FC<CelebrityAccordionProps> = ({ user, onDelete, onEdit }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [isEditing, setIsEditing] = useState<boolean>(false); // State to track editing
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
 
     const handleEdit = (updatedUser: Celebrity) => {
-        onEdit(updatedUser); // Call the onEdit function passed as a prop
-        setIsEditing(false); // Close the edit mode
+        onEdit(updatedUser);
+        setIsEditing(false);
     };
 
     return (
@@ -62,24 +62,54 @@ const CelebrityAccordion: React.FC<CelebrityAccordionProps> = ({ user, onDelete,
                 </div>
             )}
             {isOpen && isEditing && (
-                <EditUser user={user} onEdit={handleEdit} onCancel={() => setIsEditing(false)} />
+                <div style={editContainerStyle}>
+                    <EditUser 
+                        user={user} 
+                        onEdit={handleEdit} 
+                        onCancel={() => setIsEditing(false)} 
+                    />
+                </div>
             )}
         </div>
     );
 };
 
-// Styles
 const containerStyle: React.CSSProperties = {
-    marginBottom: '10px',
     border: '1px solid #ccc',
     borderRadius: '8px',
     backgroundColor: '#fff',
     padding: '15px',
     width: '100%',
-    maxWidth: '400px', // Max width for larger screens
-    margin: '0 auto', // Center on the page
+    maxWidth: '400px',
+    margin: '0 auto',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+    overflow: 'hidden',
 };
 
+const editContainerStyle: React.CSSProperties = {
+    padding: '10px',
+    backgroundColor: '#f8f8f8',
+    borderTop: '1px solid #eee',
+    marginTop: '10px',
+    marginLeft: '-15px',
+    marginRight: '-15px',
+    marginBottom: '-15px',
+};
+
+// Update media queries for responsiveness
+const mediaQueries = `
+    @media (max-width: 600px) {
+        ${containerStyle}
+        padding: '10px';
+        max-width: '90%'; // Full width on mobile
+    }
+    @media (min-width: 601px) {
+        ${containerStyle}
+        padding: '20px'; // More padding on larger screens
+    }
+`;
+
+// Styles
 const headerStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
@@ -136,14 +166,5 @@ const editButtonStyle: React.CSSProperties = {
     color: 'blue',
     marginLeft: '10px',
 };
-
-// Media Queries for Responsiveness
-const mediaQueries = `
-    @media (max-width: 600px) {
-        ${containerStyle}
-        padding: '10px';
-        max-width: '90%'; // Full width on mobile
-    }
-`;
 
 export default CelebrityAccordion;
